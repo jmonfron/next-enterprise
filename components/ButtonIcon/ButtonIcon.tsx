@@ -1,6 +1,8 @@
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { twMerge } from "tailwind-merge"
+import {PhoneArrowDownLeftIcon} from "@heroicons/react/24/solid";
+import {ElementType, ReactNode} from "react";
 
 const button = cva(
   [
@@ -33,17 +35,19 @@ const button = cva(
   }
 )
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof button> {
+export interface ButtonIconProps extends React.ButtonHTMLAttributes<HTMLAnchorElement>, VariantProps<typeof button> {
   underline?: boolean
   href: string
+    Icon: ElementType
 }
 
-export function Button({ className, intent, size, underline, ...props }: ButtonProps) {
+export function ButtonIcon({ className, intent, size, underline, Icon, ...props }: ButtonIconProps) {
   return (
       <button>
-        <a className={twMerge(button({ intent, size, className, underline }))} {...props}>
-          {props.children}
-        </a>
+          <a className={twMerge(button({intent, size, className, underline}))} {...props}>
+              <Icon className="w-5 h-5 mr-3"/> {/* Icône ajoutée avant le texte */}
+              {props.children}
+          </a>
       </button>
   )
 }
